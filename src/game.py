@@ -1,44 +1,27 @@
-import random
-import time
+import pygame
+from grid import Grid
 
 
 class Game:
-    def __init__(self, rows: int, cols: int) -> None:
-        self.rows = rows
-        self.cols = cols
-        self.grid = [[random.choice([0, 1]) for col in range(cols)] for row in range(rows)]
+    def __init__(self) -> None:
+        self.grid = Grid(50, 50)
 
-    def print_grid(self):
-        for row in self.grid:
-            print(row)
+    def run(self):
+        pygame.init()
+        screen = pygame.display.set_mode((500, 500))
+        clock = pygame.time.Clock()
+        running = True
 
-    def check_neighbors(self, x: int, y: int) -> int:
-        neighbors = 0
+        while running:
+            clock.tick(10)
+            screen.fill((0, 0, 0))
+            self.grid.draw(screen)
+            self.grid.update()
 
-        for rowIndex in range(-1, 2):
-            for colIndex in range(-1, 2):
-                if rowIndex == 0 and colIndex == 0:
-                    continue
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
 
-                if 0 <= (x + colIndex) < self.cols and 0 <= (y + rowIndex) < self.rows:
-                    neighbors += self.grid[y + rowIndex][x + colIndex]
+            pygame.display.update()
 
-        return neighbors
-
-    def update(self):
-        new_grid = [row[:] for row in self.grid]
-
-        for rowIndex in range(self.rows):
-            for colIndex in range(self.cols):
-                neighbors = self.check_neighbors(colIndex, rowIndex)
-
-                if self.grid[rowIndex][colIndex] == 1 and neighbors < 2:
-                    new_grid[rowIndex][colIndex] = 0
-                elif self.grid[rowIndex][colIndex] == 1 and (neighbors == 2 or neighbors == 3):
-                    new_grid[rowIndex][colIndex] = 1
-                elif self.grid[rowIndex][colIndex] == 1 and neighbors > 3:
-                    new_grid[rowIndex][colIndex] = 0
-                elif self.grid[rowIndex][colIndex] == 0 and neighbors == 3:
-                    new_grid[rowIndex][colIndex] = 1
-
-        self.grid = new_grid
+        pygame.quit()
