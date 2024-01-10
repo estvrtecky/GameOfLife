@@ -1,5 +1,6 @@
 import pygame
 from .grid import Grid
+from .models import Button
 
 
 class Game:
@@ -7,6 +8,10 @@ class Game:
         self.grid = Grid(50, 50)
         self.running = True
         self.update = True
+
+        # Buttons
+        self.pause_button = Button(10, 10, 32, 32, "assets/pause.png")
+        self.play_button = Button(10, 10, 32, 32, "assets/play.png")
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -36,6 +41,12 @@ class Game:
         while self.running:
             clock.tick(10)
             screen.fill((0, 0, 0))
+
+            if self.update:
+                self.pause_button.draw(screen)
+            else:
+                self.play_button.draw(screen)
+
             self.grid.draw(screen)
 
             if self.update:
