@@ -1,5 +1,5 @@
 import pygame
-from grid import Grid
+from .grid import Grid
 
 
 class Game:
