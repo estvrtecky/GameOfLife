@@ -10,23 +10,23 @@ class Game:
 
     def handle_events(self):
         for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
+            if event.type == pygame.QUIT:
+                self.running = False
 
-                # Change the state of the cell when the user clicks on it
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    mouse_pos = pygame.mouse.get_pos()
-                    x, y = mouse_pos[0] // 10, mouse_pos[1] // 10
+            # Change the state of the cell when the user clicks on it
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                x, y = mouse_pos[0] // 10, mouse_pos[1] // 10
 
-                    if self.grid.grid[y][x] == 1:
-                        self.grid.grid[y][x] = 0
-                    else:
-                        self.grid.grid[y][x] = 1
+                if self.grid.grid[y][x] == 1:
+                    self.grid.grid[y][x] = 0
+                else:
+                    self.grid.grid[y][x] = 1
 
-                # Pause or unpause the game when the user presses the space bar
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        self.update = not self.update
+            # Pause or unpause the game when the user presses the space bar
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.update = not self.update
 
     def run(self):
         pygame.init()
