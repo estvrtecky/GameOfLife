@@ -9,6 +9,7 @@ class Button:
         self.height = height
         self.image = pygame.transform.scale(pygame.image.load(image_path), (self.width, self.height))
         self.button_rect = self.image.get_rect()
+        self.button_rect.topleft = (self.x, self.y)
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))

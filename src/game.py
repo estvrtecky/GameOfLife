@@ -21,8 +21,11 @@ class Game:
             # Change the state of the cell when the user clicks on it
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                x, y = mouse_pos[0] // 10, (mouse_pos[1]-50) // 10
 
+                if self.pause_button.is_clicked(mouse_pos) or self.play_button.is_clicked(mouse_pos):
+                    self.update = not self.update
+
+                x, y = mouse_pos[0] // 10, (mouse_pos[1]-50) // 10
                 if self.grid.grid[y][x] == 1:
                     self.grid.grid[y][x] = 0
                 else:
