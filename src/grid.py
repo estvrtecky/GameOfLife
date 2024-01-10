@@ -50,4 +50,4 @@ class Grid:
                     color = (255, 255, 255)
                 else:
                     color = (0, 0, 0)
-                pygame.draw.rect(screen, color, (colIndex*10, rowIndex*10, colIndex*10+10, rowIndex*10+10))
+                pygame.draw.rect(screen, color, (colIndex*10, rowIndex*10+50, colIndex*10+10, rowIndex*10+10+50))
