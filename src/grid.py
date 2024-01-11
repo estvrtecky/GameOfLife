@@ -5,10 +5,13 @@ from .models import Colors
 
 
 class Grid:
-    def __init__(self, rows: int, cols: int) -> None:
-        self.rows = rows
-        self.cols = cols
-        self.grid = [[random.choice([0, 1]) for col in range(cols)] for row in range(rows)]
+    def __init__(self, width: int, height: int, cell_size = 10) -> None:
+        self.width = width
+        self.height = height
+        self.cell_size = cell_size
+        self.rows = height // cell_size
+        self.cols = width // cell_size
+        self.grid = [[random.choice([0, 1]) for col in range(self.cols)] for row in range(self.rows)]
         self.population = 0
 
     def is_within_grid(self, x: int, y: int) -> bool:
@@ -72,4 +75,4 @@ class Grid:
                     color = Colors.WHITE
                 else:
                     color = Colors.BLACK
-                pygame.draw.rect(screen, color, (colIndex*10, rowIndex*10+50, colIndex*10+10, rowIndex*10+10+50))
+                pygame.draw.rect(screen, color, (colIndex*self.cell_size, rowIndex*self.cell_size+50, colIndex*self.cell_size+self.cell_size, rowIndex*self.cell_size+self.cell_size+50))

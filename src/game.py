@@ -11,7 +11,7 @@ class Game:
         pygame.font.init()
 
         # Game objects
-        self.grid = Grid(50, 50)
+        self.grid = Grid(500, 500, 25)
         self.settings = Config("config.ini")
 
         # Game settings
@@ -46,7 +46,7 @@ class Game:
                     self.update = not self.update
 
                 if y >= 50:
-                    x, y = x // 10, (y - 50) // 10
+                    x, y = x // self.grid.cell_size, (y - 50) // self.grid.cell_size
                     if self.grid.grid[y][x] == 1:
                         self.grid.grid[y][x] = 0
                     else:
@@ -59,7 +59,7 @@ class Game:
                 x, y = pygame.mouse.get_pos()
 
                 if y >= 50:
-                    x, y = x // 10, (y - 50) // 10
+                    x, y = x // self.grid.cell_size, (y - 50) // self.grid.cell_size
                     if self.grid.is_within_grid(x, y):
                         self.grid.grid[y][x] = 1
 
