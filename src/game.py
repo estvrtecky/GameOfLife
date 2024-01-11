@@ -6,8 +6,11 @@ from .models import Button
 class Game:
     def __init__(self) -> None:
         self.grid = Grid(50, 50)
+
+        # State variables
         self.running = True
         self.update = True
+        self.mouse_down = False
 
         # Buttons
         self.pause_button = Button(10, 10, 32, 32, "assets/pause.png")
@@ -20,10 +23,10 @@ class Game:
 
             # Change the state of the cell when the user clicks on it
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                x, y = mouse_pos[0], mouse_pos[1]
+                self.mouse_down = True
+                x, y = pygame.mouse.get_pos()
 
-                if self.pause_button.is_clicked(mouse_pos) or self.play_button.is_clicked(mouse_pos):
+                if self.pause_button.is_clicked((x, y)) or self.play_button.is_clicked((x, y)):
                     self.update = not self.update
 
                 if y >= 50:
@@ -32,6 +35,16 @@ class Game:
                         self.grid.grid[y][x] = 0
                     else:
                         self.grid.grid[y][x] = 1
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                self.mouse_down = False
+
+            if event.type == pygame.MOUSEMOTION and self.mouse_down:
+                x, y = pygame.mouse.get_pos()
+
+                if y >= 50:
+                    x, y = x // 10, (y - 50) // 10
+                    self.grid.grid[y][x] = 1
 
             # Pause or unpause the game when the user presses the space bar
             if event.type == pygame.KEYDOWN:
