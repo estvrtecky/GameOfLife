@@ -1,6 +1,7 @@
 import pygame
 from .grid import Grid
 from .models import Button
+from .config import Config
 
 
 class Game:
