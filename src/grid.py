@@ -8,20 +8,37 @@ class Grid:
         self.cols = cols
         self.grid = [[random.choice([0, 1]) for col in range(cols)] for row in range(rows)]
 
-    def print_grid(self):
-        for row in self.grid:
-            print(row)
+    def is_within_grid(self, x: int, y: int) -> bool:
+        """
+        Returns True if the given position is within the grid, False otherwise.
+        """
+
+        return 0 <= x < self.cols and 0 <= y < self.rows
 
     def check_neighbors(self, x: int, y: int) -> int:
+        """
+        Returns the number of neighbors of a cell at the given position.
+
+        Raises a ValueError if the given position is not within the grid.
+        """
+
+        # Check if the given position is within the grid
+        if not self.is_within_grid(x, y):
+            raise ValueError("Invalid position")
+
         neighbors = 0
 
-        for rowIndex in range(-1, 2):
-            for colIndex in range(-1, 2):
-                if rowIndex == 0 and colIndex == 0:
+        # Iterate over the 3x3 grid around the cell
+        for rowOffset in range(-1, 2):
+            for colOffset in range(-1, 2):
+                # Skip the cell we are checking neighbors for
+                if rowOffset == 0 and colOffset == 0:
                     continue
 
-                if 0 <= (x + colIndex) < self.cols and 0 <= (y + rowIndex) < self.rows:
-                    neighbors += self.grid[y + rowIndex][x + colIndex]
+                # Check if the cell is within the grid
+                if self.is_within_grid(x + colOffset, y + rowOffset):
+                    # Add the value of the cell to the neighbors count (1 for alive, 0 for dead)
+                    neighbors += self.grid[y + rowOffset][x + colOffset]
 
         return neighbors
 
