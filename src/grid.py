@@ -49,14 +49,13 @@ class Grid:
         for rowIndex in range(self.rows):
             for colIndex in range(self.cols):
                 neighbors = self.check_neighbors(colIndex, rowIndex)
+                cell = self.grid[rowIndex][colIndex]
 
-                if self.grid[rowIndex][colIndex] == 1 and neighbors < 2:
+                if cell == 1 and (neighbors < 2 or neighbors > 3):
                     new_grid[rowIndex][colIndex] = 0
-                elif self.grid[rowIndex][colIndex] == 1 and (neighbors == 2 or neighbors == 3):
+                elif cell == 1 and (neighbors == 2 or neighbors == 3):
                     new_grid[rowIndex][colIndex] = 1
-                elif self.grid[rowIndex][colIndex] == 1 and neighbors > 3:
-                    new_grid[rowIndex][colIndex] = 0
-                elif self.grid[rowIndex][colIndex] == 0 and neighbors == 3:
+                elif cell == 0 and neighbors == 3:
                     new_grid[rowIndex][colIndex] = 1
 
         self.grid = new_grid
