@@ -1,6 +1,6 @@
 import pygame
 from .grid import Grid
-from .models import Button
+from .models import Button, Colors
 from .config import Config
 
 
@@ -59,20 +59,19 @@ class Game:
 
         while self.running:
             clock.tick(10)
-            screen.fill((0, 0, 0))
+            self.handle_events()
+
+            screen.fill(Colors.BLACK) # Black background
 
             if self.update:
                 self.pause_button.draw(screen)
             else:
                 self.play_button.draw(screen)
 
-            self.grid.draw(screen)
-
             if self.update:
                 self.grid.update()
 
-            self.handle_events()
-
+            self.grid.draw(screen)
 
             pygame.display.update()
 
