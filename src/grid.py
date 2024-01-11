@@ -7,6 +7,7 @@ class Grid:
         self.rows = rows
         self.cols = cols
         self.grid = [[random.choice([0, 1]) for col in range(cols)] for row in range(rows)]
+        self.population = 0
 
     def is_within_grid(self, x: int, y: int) -> bool:
         """
@@ -59,6 +60,7 @@ class Grid:
                     new_grid[rowIndex][colIndex] = 1
 
         self.grid = new_grid
+        self.population = sum([sum(row) for row in self.grid])
 
     def draw(self, screen):
         for rowIndex in range(self.rows):

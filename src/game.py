@@ -6,7 +6,22 @@ from .config import Config
 
 class Game:
     def __init__(self) -> None:
+        # Pygame initialization
+        pygame.init()
+        pygame.font.init()
+
+        # Game objects
         self.grid = Grid(50, 50)
+        self.settings = Config("config.ini")
+
+        # Game settings
+        self.name = self.settings.get("game", "name")
+
+        # Display settings
+        self.width = self.settings.getint("display", "width")
+        self.height = self.settings.getint("display", "height")
+        self.fps = self.settings.getint("display", "fps")
+        self.font = pygame.font.Font("assets/fonts/PixelifySans-VariableFont_wght.ttf", 30)
 
         # State variables
         self.running = True
@@ -53,12 +68,12 @@ class Game:
                     self.update = not self.update
 
     def run(self):
-        pygame.init()
-        screen = pygame.display.set_mode((500, 550))
+        screen = pygame.display.set_mode((self.width, self.height))
         clock = pygame.time.Clock()
+        pygame.display.set_caption(self.name)
 
         while self.running:
-            clock.tick(10)
+            clock.tick(self.fps)
             self.handle_events()
 
             screen.fill(Colors.BLACK) # Black background
@@ -72,6 +87,9 @@ class Game:
                 self.grid.update()
 
             self.grid.draw(screen)
+
+            textsurface = self.font.render('Population: ' + str(self.grid.population), False, (255, 255, 255))
+            screen.blit(textsurface, (50, 7))
 
             pygame.display.update()
 
