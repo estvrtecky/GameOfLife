@@ -60,7 +60,8 @@ class Game:
 
                 if y >= 50:
                     x, y = x // 10, (y - 50) // 10
-                    self.grid.grid[y][x] = 1
+                    if self.grid.is_within_grid(x, y):
+                        self.grid.grid[y][x] = 1
 
             # Pause or unpause the game when the user presses the space bar
             if event.type == pygame.KEYDOWN:
