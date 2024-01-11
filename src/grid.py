@@ -1,6 +1,8 @@
 import pygame
 import random
 
+from .models import Colors
+
 
 class Grid:
     def __init__(self, rows: int, cols: int) -> None:
@@ -61,11 +63,13 @@ class Grid:
         self.grid = new_grid
         self.population = sum([sum(row) for row in self.grid])
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.Surface) -> None:
+        """Draw the grid on the screen."""
+
         for rowIndex in range(self.rows):
             for colIndex in range(self.cols):
                 if self.grid[rowIndex][colIndex] == 1:
-                    color = (255, 255, 255)
+                    color = Colors.WHITE
                 else:
-                    color = (0, 0, 0)
+                    color = Colors.BLACK
                 pygame.draw.rect(screen, color, (colIndex*10, rowIndex*10+50, colIndex*10+10, rowIndex*10+10+50))
