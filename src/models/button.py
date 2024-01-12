@@ -16,7 +16,7 @@ class Button:
 
         screen.blit(self.image, (self.x, self.y))
 
-    def is_clicked(self, mouse_pos: tuple) -> bool:
-        """Returns True if the button is clicked, False otherwise."""
+    def mouse_over(self, mouse_pos: tuple) -> bool:
+        """Returns True if the mouse is over the button, False otherwise."""
 
         return self.button_rect.collidepoint(mouse_pos)

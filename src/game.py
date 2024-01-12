@@ -46,7 +46,7 @@ class Game:
                 self.mouse_down = True
                 x, y = pygame.mouse.get_pos()
 
-                if self.pause_button.is_clicked((x, y)) or self.play_button.is_clicked((x, y)):
+                if self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y)):
                     self.update = not self.update
 
                 if y >= 50:
