@@ -28,9 +28,13 @@ class Game:
         self.update = True
         self.mouse_down = False
 
+        # Graphics
+        self.pause_btn_img = pygame.image.load("assets/pause.png")
+        self.play_btn_img = pygame.image.load("assets/play.png")
+
         # Buttons
-        self.pause_button = Button(10, 10, 32, 32, "assets/pause.png")
-        self.play_button = Button(10, 10, 32, 32, "assets/play.png")
+        self.pause_button = Button(10, 10, 32, 32, self.pause_btn_img)
+        self.play_button = Button(10, 10, 32, 32, self.play_btn_img)
 
     def handle_events(self):
         for event in pygame.event.get():
