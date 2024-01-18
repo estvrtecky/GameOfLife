@@ -4,8 +4,8 @@ import pygame
 class Button:
     def __init__(self, x: int, y: int, width: int, height: int, image: pygame.Surface = None, text: str = "", font: pygame.font.Font = None) -> None:
         # Position and size
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
         self.width = width
         self.height = height
 
@@ -33,6 +33,24 @@ class Button:
         self.button_rect = self.image.get_rect()
         self.button_rect.topleft = (self.x, self.y)
 
+    @property
+    def x(self) -> int:
+        return self._x
+
+    @x.setter
+    def x(self, value: int) -> None:
+        self._x = value
+        self.button_rect.topleft = (self.x, self.y)
+
+    @property
+    def y(self) -> int:
+        return self._y
+
+    @y.setter
+    def y(self, value: int) -> None:
+        self._y = value
+        self.button_rect.topleft = (self.x, self.y)
+
     def draw(self, surface: pygame.Surface) -> None:
         """Draws the button on the surface."""
 
@@ -43,7 +61,6 @@ class Button:
 
         self.x = x
         self.y = y
-        self.button_rect.topleft = (self.x, self.y)
 
     def mouse_over(self, mouse_pos: tuple) -> bool:
         """Returns True if the mouse is over the button, False otherwise."""
