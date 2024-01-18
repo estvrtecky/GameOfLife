@@ -11,10 +11,10 @@ class Button:
         self.button_rect = self.image.get_rect()
         self.button_rect.topleft = (self.x, self.y)
 
-    def draw(self, screen: pygame.Surface) -> None:
-        """Draw the button on the screen."""
+    def draw(self, surface: pygame.Surface) -> None:
+        """Draws the button on the surface."""
 
-        screen.blit(self.image, (self.x, self.y))
+        surface.blit(self.image, (self.x, self.y))
 
     def mouse_over(self, mouse_pos: tuple) -> bool:
         """Returns True if the mouse is over the button, False otherwise."""
