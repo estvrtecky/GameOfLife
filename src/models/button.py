@@ -38,6 +38,13 @@ class Button:
 
         surface.blit(self.image, (self.x, self.y))
 
+    def move(self, x: int, y: int) -> None:
+        """Moves the button to the given position."""
+
+        self.x = x
+        self.y = y
+        self.button_rect.topleft = (self.x, self.y)
+
     def mouse_over(self, mouse_pos: tuple) -> bool:
         """Returns True if the mouse is over the button, False otherwise."""
 
