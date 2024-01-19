@@ -40,7 +40,7 @@ class Button:
     @x.setter
     def x(self, value: int) -> None:
         self._x = value
-        self.button_rect.topleft = (self.x, self.y)
+        self.button_rect.x = self.x
 
     @property
     def y(self) -> int:
@@ -49,7 +49,15 @@ class Button:
     @y.setter
     def y(self, value: int) -> None:
         self._y = value
-        self.button_rect.topleft = (self.x, self.y)
+        self.button_rect.y = self.y
+
+    @property
+    def center(self) -> tuple:
+        return self.button_rect.center
+
+    @center.setter
+    def center(self, value: tuple) -> None:
+        self.button_rect.center = value
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draws the button on the surface."""
