@@ -1,4 +1,5 @@
 import pygame
+
 from .grid import Grid
 from .models import Button, Colors
 from .config import Config
@@ -25,6 +26,7 @@ class Game:
 
         # State variables
         self.running = True
+        self.menu = True
         self.update = True
         self.mouse_down = False
 
@@ -35,11 +37,13 @@ class Game:
         # Buttons
         self.pause_button = Button(10, 10, 32, 32, self.pause_btn_img)
         self.play_button = Button(10, 10, 32, 32, self.play_btn_img)
+        self.start_button = Button(self.width // 2 - 75, self.height // 2 - 25, 150, 50, text="Start", font=self.font)
 
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                self.menu = False
 
             # Change the state of the cell when the user clicks on it
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -48,6 +52,8 @@ class Game:
 
                 if self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y)):
                     self.update = not self.update
+                elif self.start_button.mouse_over((x, y)):
+                    self.menu = False
 
                 if y >= 50:
                     x, y = x // self.grid.cell_size, (y - 50) // self.grid.cell_size
@@ -78,10 +84,20 @@ class Game:
         pygame.display.set_caption(self.name)
 
         while self.running:
+            while self.menu:
+                clock.tick(self.fps)
+                self.handle_events()
+
+                screen.fill(Colors.BLACK)
+
+                self.start_button.draw(screen)
+
+                pygame.display.update()
+
             clock.tick(self.fps)
             self.handle_events()
 
-            screen.fill(Colors.BLACK) # Black background
+            screen.fill(Colors.BLACK)
 
             if self.update:
                 self.pause_button.draw(screen)
