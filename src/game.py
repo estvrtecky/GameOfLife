@@ -50,7 +50,7 @@ class Game:
                 self.mouse_down = True
                 x, y = pygame.mouse.get_pos()
 
-                if self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y)):
+                if (self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y))) and not self.menu:
                     self.update = not self.update
                 elif self.start_button.mouse_over((x, y)):
                     self.menu = False
@@ -73,9 +73,9 @@ class Game:
                     if self.grid.is_within_grid(x, y):
                         self.grid.grid[y][x] = 1
 
-            # Pause or unpause the game when the user presses the space bar
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                # Pause or unpause the game when the user presses the space bar
+                if event.key == pygame.K_SPACE and not self.menu:
                     self.update = not self.update
 
     def draw_main_menu(self, screen):
