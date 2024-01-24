@@ -27,23 +27,24 @@ class Game:
         # State variables
         self.running = True
         self.menu = True
-        self.update = True
+        self.update = False
         self.mouse_down = False
 
         # Graphics
         self.pause_btn_img = pygame.image.load("assets/pause.png")
         self.play_btn_img = pygame.image.load("assets/play.png")
+        self.menu_btn_img = pygame.image.load("assets/menu.png")
 
         # Buttons
-        self.pause_button = Button(10, 10, 32, 32, self.pause_btn_img)
-        self.play_button = Button(10, 10, 32, 32, self.play_btn_img)
+        self.menu_button = Button(10, 10, 32, 32, self.menu_btn_img)
+        self.pause_button = Button(50, 10, 32, 32, self.pause_btn_img)
+        self.play_button = Button(50, 10, 32, 32, self.play_btn_img)
         self.start_button = Button(self.width // 2 - 75, self.height // 2 - 25, 150, 50, text="Start", font=self.font)
 
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-                self.menu = False
 
             # Change the state of the cell when the user clicks on it
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -52,8 +53,12 @@ class Game:
 
                 if (self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y))) and not self.menu:
                     self.update = not self.update
-                elif self.start_button.mouse_over((x, y)):
+                elif self.start_button.mouse_over((x, y)) and self.menu:
                     self.menu = False
+                    self.update = True
+                elif self.menu_button.mouse_over((x, y)) and not self.menu:
+                    self.menu = True
+                    self.update = False
 
                 if y >= 50:
                     x, y = x // self.grid.cell_size, (y - 50) // self.grid.cell_size
@@ -96,6 +101,8 @@ class Game:
             else:
                 screen.fill(Colors.BLACK)
 
+                self.menu_button.draw(screen)
+
                 if self.update:
                     self.pause_button.draw(screen)
                 else:
@@ -107,7 +114,7 @@ class Game:
                 self.grid.draw(screen)
 
                 textsurface = self.font.render('Population: ' + str(self.grid.population), False, (255, 255, 255))
-                screen.blit(textsurface, (50, 7))
+                screen.blit(textsurface, (90, 7))
 
             pygame.display.update()
 
