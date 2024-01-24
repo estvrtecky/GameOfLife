@@ -88,31 +88,26 @@ class Game:
         pygame.display.set_caption(self.name)
 
         while self.running:
-            while self.menu:
-                clock.tick(self.fps)
-                self.handle_events()
-
-                self.draw_main_menu(screen)
-
-                pygame.display.update()
-
-            clock.tick(self.fps)
+            dt = clock.tick(self.fps)
             self.handle_events()
 
-            screen.fill(Colors.BLACK)
-
-            if self.update:
-                self.pause_button.draw(screen)
+            if self.menu:
+                self.draw_main_menu(screen)
             else:
-                self.play_button.draw(screen)
+                screen.fill(Colors.BLACK)
 
-            if self.update:
-                self.grid.update()
+                if self.update:
+                    self.pause_button.draw(screen)
+                else:
+                    self.play_button.draw(screen)
 
-            self.grid.draw(screen)
+                if self.update:
+                    self.grid.update()
 
-            textsurface = self.font.render('Population: ' + str(self.grid.population), False, (255, 255, 255))
-            screen.blit(textsurface, (50, 7))
+                self.grid.draw(screen)
+
+                textsurface = self.font.render('Population: ' + str(self.grid.population), False, (255, 255, 255))
+                screen.blit(textsurface, (50, 7))
 
             pygame.display.update()
 
