@@ -51,21 +51,23 @@ class Game:
                 self.mouse_down = True
                 x, y = pygame.mouse.get_pos()
 
-                if (self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y))) and not self.menu:
-                    self.update = not self.update
-                elif self.start_button.mouse_over((x, y)) and self.menu:
-                    self.menu = False
-                    self.update = True
-                elif self.menu_button.mouse_over((x, y)) and not self.menu:
-                    self.menu = True
-                    self.update = False
+                if self.menu:
+                    if self.start_button.mouse_over((x, y)):
+                        self.menu = False
+                        self.update = True
+                else:
+                    if self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y)):
+                        self.update = not self.update
+                    elif self.menu_button.mouse_over((x, y)):
+                        self.menu = True
+                        self.update = False
 
-                if y >= 50:
-                    x, y = x // self.grid.cell_size, (y - 50) // self.grid.cell_size
-                    if self.grid.grid[y][x] == 1:
-                        self.grid.grid[y][x] = 0
-                    else:
-                        self.grid.grid[y][x] = 1
+                    if y >= 50:
+                        x, y = x // self.grid.cell_size, (y - 50) // self.grid.cell_size
+                        if self.grid.grid[y][x] == 1:
+                            self.grid.grid[y][x] = 0
+                        else:
+                            self.grid.grid[y][x] = 1
 
             if event.type == pygame.MOUSEBUTTONUP:
                 self.mouse_down = False
