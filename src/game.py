@@ -78,6 +78,10 @@ class Game:
                 if event.key == pygame.K_SPACE:
                     self.update = not self.update
 
+    def draw_main_menu(self, screen):
+        screen.fill(Colors.BLACK)
+        self.start_button.draw(screen)
+
     def run(self):
         screen = pygame.display.set_mode((self.width, self.height))
         clock = pygame.time.Clock()
@@ -88,9 +92,7 @@ class Game:
                 clock.tick(self.fps)
                 self.handle_events()
 
-                screen.fill(Colors.BLACK)
-
-                self.start_button.draw(screen)
+                self.draw_main_menu(screen)
 
                 pygame.display.update()
 
