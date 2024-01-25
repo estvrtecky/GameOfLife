@@ -1,7 +1,7 @@
 import pygame
 
 from .grid import Grid
-from .models import Button, Colors
+from .models import Button, Label, Colors
 from .config import Config
 
 
