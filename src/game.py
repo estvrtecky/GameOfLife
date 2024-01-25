@@ -35,6 +35,9 @@ class Game:
         self.play_btn_img = pygame.image.load("assets/play.png")
         self.menu_btn_img = pygame.image.load("assets/menu.png")
 
+        # Labels
+        self.population_label = Label(90, 7, text=f"Population: {self.grid.population}", font=self.font)
+
         # Buttons
         self.menu_button = Button(10, 10, 32, 32, self.menu_btn_img)
         self.pause_button = Button(50, 10, 32, 32, self.pause_btn_img)
@@ -115,8 +118,8 @@ class Game:
 
                 self.grid.draw(screen)
 
-                textsurface = self.font.render('Population: ' + str(self.grid.population), False, (255, 255, 255))
-                screen.blit(textsurface, (90, 7))
+                self.population_label.text = f"Population: {self.grid.population}"
+                self.population_label.draw(screen)
 
             pygame.display.update()
 
