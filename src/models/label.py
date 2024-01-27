@@ -30,6 +30,24 @@ class Label:
         self.rect.y = self.y
 
     @property
+    def width(self) -> int:
+        return self.rect.width
+
+    @property
+    def height(self) -> int:
+        return self.rect.height
+
+    @property
+    def center(self) -> tuple:
+        return self.rect.center
+
+    @center.setter
+    def center(self, value: tuple) -> None:
+        self.rect.center = value
+        self.x = self.rect.x
+        self.y = self.rect.y
+
+    @property
     def text(self) -> str:
         return self._text
 
