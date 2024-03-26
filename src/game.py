@@ -46,8 +46,9 @@ class Game:
         self.menu_button = Button(10, 10, 32, 32, self.menu_btn_img)
         self.pause_button = Button(50, 10, 32, 32, self.pause_btn_img)
         self.play_button = Button(50, 10, 32, 32, self.play_btn_img)
-        self.start_button = Button(self.width // 2 - 75, self.height // 2 - 60, 150, 50, text="Start", font=self.font)
-        self.settings_button = Button(self.width // 2 - 75, self.height // 2 + 10, 150, 50, text="Settings", font=self.font)
+        self.start_button = Button(self.width // 2 - 75, self.height // 2 - 85, 150, 50, text="Start", font=self.font)
+        self.settings_button = Button(self.width // 2 - 75, self.height // 2 - 25, 150, 50, text="Settings", font=self.font)
+        self.quit_button = Button(self.width // 2 - 75, self.height // 2 + 50 - 25 + 10, 150, 50, text="Quit", font=self.font)
         self.back_button = Button(10, self.height - 60, 100, 50, text="Back", font=self.font)
         self.save_button = Button(self.width - 110, self.height - 60, 100, 50, text="Save", font=self.font)
         self.speed_up_button = Button(self.width - 10 - self.speed_label.height, 10, self.speed_label.height, self.speed_label.height, text="+", font=self.font)
@@ -71,6 +72,8 @@ class Game:
                     elif self.settings_button.mouse_over((x, y)):
                         self.settings_menu = True
                         self.menu = False
+                    elif self.quit_button.mouse_over((x, y)):
+                        self.running = False
                 elif self.settings_menu:
                     if self.back_button.mouse_over((x, y)):
                         self.settings_menu = False
@@ -122,6 +125,7 @@ class Game:
         screen.fill(Colors.BLACK)
         self.start_button.draw(screen)
         self.settings_button.draw(screen)
+        self.quit_button.draw(screen)
 
     def draw_settings(self, screen):
         screen.fill(Colors.BLACK)
