@@ -54,8 +54,6 @@ class Grid:
 
                 if cell == 1 and (neighbors < 2 or neighbors > 3):
                     new_grid[rowIndex][colIndex] = 0
-                elif cell == 1 and (neighbors == 2 or neighbors == 3):
-                    new_grid[rowIndex][colIndex] = 1
                 elif cell == 0 and neighbors == 3:
                     new_grid[rowIndex][colIndex] = 1
 
@@ -74,4 +72,4 @@ class Grid:
 
                 cell_x = x + colIndex * self.cell_size
                 cell_y = y + rowIndex * self.cell_size
-                pygame.draw.rect(screen, color, (cell_x, cell_y, cell_x + self.cell_size, cell_y + self.cell_size))
+                pygame.draw.rect(screen, color, (cell_x, cell_y, self.cell_size, self.cell_size))

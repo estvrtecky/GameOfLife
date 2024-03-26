@@ -162,10 +162,10 @@ class Game:
                 else:
                     self.play_button.draw(screen)
 
-                self.grid.draw(screen, 0, 50)
-
                 self.population_label.text = f"Population: {self.grid.population}"
                 self.population_label.draw(screen)
+
+                self.grid.draw(screen, 0, 50)
 
             pygame.display.update()
 
