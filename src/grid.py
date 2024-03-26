@@ -62,7 +62,7 @@ class Grid:
         self.grid = new_grid
         self.population = sum([sum(row) for row in self.grid])
 
-    def draw(self, screen: pygame.Surface, x: int, y: int) -> None:
+    def draw(self, screen: pygame.Surface, x: int = 0, y: int = 0) -> None:
         """Draw the grid on the screen."""
 
         for rowIndex in range(self.rows):
@@ -71,13 +71,7 @@ class Grid:
                     color = Colors.WHITE
                 else:
                     color = Colors.BLACK
-                pygame.draw.rect(
-                    screen,
-                    color,
-                    (
-                        x + colIndex * self.cell_size,
-                        y + rowIndex * self.cell_size,
-                        x + colIndex * self.cell_size + self.cell_size,
-                        y + rowIndex * self.cell_size + self.cell_size
-                    )
-                )
+
+                cell_x = x + colIndex * self.cell_size
+                cell_y = y + rowIndex * self.cell_size
+                pygame.draw.rect(screen, color, (cell_x, cell_y, cell_x + self.cell_size, cell_y + self.cell_size))
