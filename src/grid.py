@@ -3,6 +3,8 @@ import random
 
 from .models import Colors
 
+ALIVE = 1
+DEAD = 0
 
 class Grid:
     def __init__(self, width: int, height: int, cell_size: int = 10) -> None:
@@ -11,7 +13,7 @@ class Grid:
         self.cell_size = cell_size
         self.rows = height // cell_size
         self.cols = width // cell_size
-        self.grid = [[random.choice([0, 1]) for col in range(self.cols)] for row in range(self.rows)]
+        self.grid = [[random.choice([DEAD, ALIVE]) for col in range(self.cols)] for row in range(self.rows)]
         self.population = 0
 
     def is_within_grid(self, x: int, y: int) -> bool:
@@ -52,10 +54,10 @@ class Grid:
                 neighbors = self.check_neighbors(colIndex, rowIndex)
                 cell = self.grid[rowIndex][colIndex]
 
-                if cell == 1 and (neighbors < 2 or neighbors > 3):
-                    new_grid[rowIndex][colIndex] = 0
-                elif cell == 0 and neighbors == 3:
-                    new_grid[rowIndex][colIndex] = 1
+                if cell == ALIVE and (neighbors < 2 or neighbors > 3):
+                    new_grid[rowIndex][colIndex] = DEAD
+                elif cell == DEAD and neighbors == 3:
+                    new_grid[rowIndex][colIndex] = ALIVE
 
         self.grid = new_grid
         self.population = sum([sum(row) for row in self.grid])
@@ -65,7 +67,7 @@ class Grid:
 
         for rowIndex in range(self.rows):
             for colIndex in range(self.cols):
-                if self.grid[rowIndex][colIndex] == 1:
+                if self.grid[rowIndex][colIndex] == ALIVE:
                     color = Colors.WHITE
                 else:
                     color = Colors.BLACK
