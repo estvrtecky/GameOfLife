@@ -3,8 +3,11 @@ import random
 
 from .models import Colors
 
-ALIVE = 1
 DEAD = 0
+ALIVE = 1
+UNDERPOPULATION_THRESHOLD = 2
+OVERPOPULATION_THRESHOLD = 3
+REPRODUCTION_NUMBER = 3
 
 class Grid:
     def __init__(self, width: int, height: int, cell_size: int = 10) -> None:
@@ -54,9 +57,9 @@ class Grid:
                 neighbors = self.check_neighbors(colIndex, rowIndex)
                 cell = self.grid[rowIndex][colIndex]
 
-                if cell == ALIVE and (neighbors < 2 or neighbors > 3):
+                if cell == ALIVE and (neighbors < UNDERPOPULATION_THRESHOLD or neighbors > OVERPOPULATION_THRESHOLD):
                     new_grid[rowIndex][colIndex] = DEAD
-                elif cell == DEAD and neighbors == 3:
+                elif cell == DEAD and neighbors == REPRODUCTION_NUMBER:
                     new_grid[rowIndex][colIndex] = ALIVE
 
         self.grid = new_grid
