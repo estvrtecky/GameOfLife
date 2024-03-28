@@ -67,7 +67,6 @@ class Grid:
 
     def draw(self, screen: pygame.Surface, x: int = 0, y: int = 0) -> None:
         """Draw the grid on the screen."""
-
         for rowIndex in range(self.rows):
             for colIndex in range(self.cols):
                 if self.grid[rowIndex][colIndex] == ALIVE:

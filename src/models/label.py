@@ -58,5 +58,5 @@ class Label:
         self.rect = self.text_surface.get_rect(topleft=(self.x, self.y))
 
     def draw(self, screen: pygame.Surface) -> None:
-        """Draws the label on the screen."""
+        """Draw the label on the screen."""
         screen.blit(self.text_surface, self.rect)
