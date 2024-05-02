@@ -43,16 +43,16 @@ class Game:
         self.speed_label = Label(10, 10, text=f"Speed: {self.speed}", font=self.font)
 
         # Buttons
-        self.menu_button = Button(10, 10, 32, 32, self.menu_btn_img)
-        self.pause_button = Button(50, 10, 32, 32, self.pause_btn_img)
-        self.play_button = Button(50, 10, 32, 32, self.play_btn_img)
-        self.start_button = Button(self.width // 2 - 75, self.height // 2 - 85, 150, 50, text="Start", font=self.font)
-        self.settings_button = Button(self.width // 2 - 75, self.height // 2 - 25, 150, 50, text="Settings", font=self.font)
-        self.quit_button = Button(self.width // 2 - 75, self.height // 2 + 50 - 25 + 10, 150, 50, text="Quit", font=self.font)
-        self.back_button = Button(10, self.height - 60, 100, 50, text="Back", font=self.font)
-        self.save_button = Button(self.width - 110, self.height - 60, 100, 50, text="Save", font=self.font)
-        self.speed_up_button = Button(self.width - 10 - self.speed_label.height, 10, self.speed_label.height, self.speed_label.height, text="+", font=self.font)
-        self.speed_down_button = Button(self.speed_up_button.x - 10 - self.speed_label.height, 10, self.speed_label.height, self.speed_label.height, text="-", font=self.font)
+        self.menu_button = Button(x=10, y=10, width=32, height=32, image=self.menu_btn_img)
+        self.pause_button = Button(x=50, y=10, width=32, height=32, image=self.pause_btn_img)
+        self.play_button = Button(x=50, y=10, width=32, height=32, image=self.play_btn_img)
+        self.start_button = Button(x=self.width // 2 - 75, y=self.height // 2 - 85, width=150, height=50, text="Start", font=self.font)
+        self.settings_button = Button(x=self.width // 2 - 75, y=self.height // 2 - 25, width=150, height=50, text="Settings", font=self.font)
+        self.quit_button = Button(x=self.width // 2 - 75, y=self.height // 2 + 50 - 25 + 10, width=150, height=50, text="Quit", font=self.font)
+        self.back_button = Button(x=10, y=self.height - 60, width=100, height=50, text="Back", font=self.font)
+        self.save_button = Button(x=self.width - 110, y=self.height - 60, width=100, height=50, text="Save", font=self.font)
+        self.speed_up_button = Button(x=self.width - 10 - self.speed_label.height, y=10, width=self.speed_label.height, height=self.speed_label.height, text="+", font=self.font)
+        self.speed_down_button = Button(x=self.speed_up_button.x - 10 - self.speed_label.height, y=10, width=self.speed_label.height, height=self.speed_label.height, text="-", font=self.font)
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -66,30 +66,30 @@ class Game:
 
                 # Button clicks
                 if self.menu:
-                    if self.start_button.mouse_over((x, y)):
+                    if self.start_button.is_mouse_over((x, y)):
                         self.menu = False
                         self.update = True
-                    elif self.settings_button.mouse_over((x, y)):
+                    elif self.settings_button.is_mouse_over((x, y)):
                         self.settings_menu = True
                         self.menu = False
-                    elif self.quit_button.mouse_over((x, y)):
+                    elif self.quit_button.is_mouse_over((x, y)):
                         self.running = False
                 elif self.settings_menu:
-                    if self.back_button.mouse_over((x, y)):
+                    if self.back_button.is_mouse_over((x, y)):
                         self.settings_menu = False
                         self.menu = True
-                    elif self.save_button.mouse_over((x, y)):
+                    elif self.save_button.is_mouse_over((x, y)):
                         self.settings.set("game", "speed", self.speed)
-                    elif self.speed_up_button.mouse_over((x, y)):
+                    elif self.speed_up_button.is_mouse_over((x, y)):
                         self.speed += 1 if self.speed < 10 else 0
                         self.speed_label.text = f"Speed: {self.speed}"
-                    elif self.speed_down_button.mouse_over((x, y)):
+                    elif self.speed_down_button.is_mouse_over((x, y)):
                         self.speed -= 1 if self.speed > 1 else 0
                         self.speed_label.text = f"Speed: {self.speed}"
                 else:
-                    if self.pause_button.mouse_over((x, y)) or self.play_button.mouse_over((x, y)):
+                    if self.pause_button.is_mouse_over((x, y)) or self.play_button.is_mouse_over((x, y)):
                         self.update = not self.update
-                    elif self.menu_button.mouse_over((x, y)):
+                    elif self.menu_button.is_mouse_over((x, y)):
                         self.menu = True
                         self.update = False
 
